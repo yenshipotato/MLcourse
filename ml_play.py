@@ -6,6 +6,7 @@ import games.arkanoid.communication as comm
 from games.arkanoid.communication import ( \
     SceneInfo, GameStatus, PlatformAction
 )
+import random as rand
 
 def ml_loop():
     """
@@ -55,14 +56,17 @@ def ml_loop():
 
         # 3.4. Send the instruction for this frame to the game process
         if not ball_served:
-            comm.send_instruction(scene_info.frame, PlatformAction.SERVE_TO_RIGHT)
+            if rand.randint(0,1)==0:
+                comm.send_instruction(scene_info.frame, PlatformAction.SERVE_TO_RIGHT)
+            else :
+                comm.send_instruction(scene_info.frame, PlatformAction.SERVE_TO_LEFT)
             
             ball_served = True
         else:
             #print(vX,end=",")
             #print(vY)
                
-            if vY!=0 :
+            if vY>0 :
                 
                 dX = 10+bX+((400-bY)/vY)*vX
                 
@@ -75,19 +79,20 @@ def ml_loop():
                 #print(dX,end=",")
                 #print(scene_info.platform)
 
-                if plat+20<dX:
+                if plat+30<dX:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
-                elif plat+20>dX:
+                elif plat+30>dX:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
                 else:
-                    if vX>0:
-                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
-                    else :
+                    r = rand.randint(0,1)
+                    if r == 0:
                         comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
-            #else:
-                
-               """
-                if plat<bX+(400-bY)/2:
+                    else:
+                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+                        
+            else:
+               
+                if plat+30<bX+(400-bY)/2:
                     #print(plat,end=',')
                     #print(bX+(400-bY)/2)
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
@@ -95,7 +100,13 @@ def ml_loop():
                     #print(plat,end=',')
                     #print(bX-(400-bY)/2)
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+                else :
+                    r = rand.randint()%2
+                    if r == 0:
+                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
+                    else:
+                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
            
-                """
+
                 
             
