@@ -92,16 +92,13 @@ def ml_loop():
                         
             else:
                
-                if plat+30<bX+(400-bY)/2:
-                    #print(plat,end=',')
-                    #print(bX+(400-bY)/2)
+                dX=(bX+vX*10)%200
+                if plat+30<dX:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
-                elif plat+20>bX-(400-bY)/2:
-                    #print(plat,end=',')
-                    #print(bX-(400-bY)/2)
+                elif plat+30>dX:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
-                else :
-                    r = rand.randint()%2
+                else:
+                    r = rand.randint(0,1)
                     if r == 0:
                         comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
                     else:
