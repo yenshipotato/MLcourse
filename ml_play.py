@@ -85,11 +85,7 @@ def ml_loop():
                 elif plat+30>dX:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
                 else:
-                    r = rand.randint(0,1)
-                    if r == 0:
-                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
-                    else:
-                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
                         
             else:
                
