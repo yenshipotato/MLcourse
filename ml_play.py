@@ -56,10 +56,7 @@ def ml_loop():
 
         # 3.4. Send the instruction for this frame to the game process
         if not ball_served:
-            if rand.randint(0,1)==0:
-                comm.send_instruction(scene_info.frame, PlatformAction.SERVE_TO_RIGHT)
-            else :
-                comm.send_instruction(scene_info.frame, PlatformAction.SERVE_TO_LEFT)
+            comm.send_instruction(scene_info.frame, PlatformAction.SERVE_TO_LEFT)
             
             ball_served = True
         else:
@@ -102,11 +99,7 @@ def ml_loop():
                 elif plat+30>dX:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
                 else:
-                    r = rand.randint(0,1)
-                    if r == 0:
-                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
-                    else:
-                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
            
 
                 
