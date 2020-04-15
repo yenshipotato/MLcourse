@@ -78,8 +78,12 @@ def ml_loop():
                     dX = 400+dX
                 #print(dX,end=",")
                 #print(scene_info.platform)
-
-                if plat+30<dX:
+                
+                if plat+40==200:
+                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+                elif plat==0:
+                    comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
+                elif plat+30<dX:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
                 elif plat+30>dX:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
