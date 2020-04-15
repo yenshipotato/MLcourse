@@ -62,7 +62,7 @@ def ml_loop():
             #print(vX,end=",")
             #print(vY)
                
-            if vY>0 :
+            if vY!=0 :
                 
                 dX = 10+bX+((400-bY)/vY)*vX
                 
@@ -80,9 +80,13 @@ def ml_loop():
                 elif plat+20>dX:
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
                 else:
-                    comm.send_instruction(scene_info.frame, PlatformAction.NONE)
-            else:
-               
+                    if vX>0:
+                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+                    else :
+                        comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
+            #else:
+                
+               """
                 if plat<bX+(400-bY)/2:
                     #print(plat,end=',')
                     #print(bX+(400-bY)/2)
@@ -92,6 +96,6 @@ def ml_loop():
                     #print(bX-(400-bY)/2)
                     comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
            
-
+                """
                 
             
